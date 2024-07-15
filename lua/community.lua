@@ -23,6 +23,15 @@ return {
   { import = "astrocommunity.pack.markdown" },
   { import = "astrocommunity.pack.typescript" },
 
+  -- jump
+  {
+    import = "astrocommunity.motion.leap-nvim",
+    -- config = function(_, _)
+    --   local leap = require "leap"
+    --   leap.create_default_mappings()
+    -- end,
+  },
+
   -- msic
   { import = "astrocommunity.utility.noice-nvim" },
   { import = "astrocommunity.completion.cmp-cmdline" },
