@@ -45,6 +45,60 @@ return {
       }
     end,
   },
+  -- avante
+  {
+    "yetone/avante.nvim",
+    -- config = function()
+    --   require("avante_lib").load() -- note requiring avante_lib here
+    --   require("avante").setup {
+    --     -- add any options here if needed
+    --   }
+    -- end,
+    -- run = "make BUILD_FROM_SOURCE=true", -- Build command (use this if you build from source)
+    -- requires = {
+    --   "nvim-treesitter/nvim-treesitter",
+    --   "stevearc/dressing.nvim",
+    --   "nvim-lua/plenary.nvim",
+    --   "MunifTanjim/nui.nvim",
+    --
+    --   { "nvim-tree/nvim-web-devicons", opt = true },
+    -- },
+    opts = {
+      provider = "deepseek",
+      auto_suggestions_provider = "deepseek",
+      behaviour = {
+        auto_suggestions = true,
+      },
+      vendors = {
+        --- @type AvanteProvider
+        ["deepseek"] = {
+          endpoint = "https://api.deepseek.com/chat/completions",
+          model = "deepseek-coder",
+          api_key_name = "DEEPSEEK_API_KEY",
+          parse_curl_args = function(opts, code_opts)
+            return {
+              url = opts.endpoint,
+              headers = {
+                ["Accept"] = "application/json",
+                ["Content-Type"] = "application/json",
+                ["Authorization"] = "Bearer " .. os.getenv(opts.api_key_name),
+              },
+              body = {
+                model = opts.model,
+                messages = require("avante.providers").copilot.parse_messages(code_opts),
+                temperature = 0,
+                max_tokens = 4096,
+                stream = true,
+              },
+            }
+          end,
+          parse_response_data = function(data_stream, event_state, opts)
+            require("avante.providers").copilot.parse_response(data_stream, event_state, opts)
+          end,
+        },
+      },
+    },
+  },
   -- telescope
   {
     "nvim-telescope/telescope.nvim",
