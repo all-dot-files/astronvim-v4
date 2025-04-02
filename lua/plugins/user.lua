@@ -15,6 +15,16 @@ return {
     config = function() require("lsp_signature").setup() end,
   },
 
+  -- {
+  --   "folke/todo-comments.nvim",
+  --   event = { "BufReadPre", "BufNewFile" },
+  --   optional = true,
+  --   keys = {
+  --     { "<leader>pt", function() require("snacks").picker.todo_comments() end,                                          desc = "Todo" },
+  --     { "<leader>pT", function() require("snacks").picker.todo_comments({ keywords = { "TODO", "FIX", "FIXME" } }) end, desc = "Todo/Fix/Fixme" },
+  --   },
+  -- },
+
   -- == Examples of Overriding Plugins ==
 
   -- customize alpha options
